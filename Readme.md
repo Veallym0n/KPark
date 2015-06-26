@@ -25,7 +25,7 @@ Server.initServer()
 Server.initIO()
 
 def run():
-    rdd.RDD(range(1000)).filter(lambda x:x%2==0).map(str).collectAsMap()
+    print rdd.RDD(range(1000),ctx=Server.Context).filter(lambda x:x%2==0).map(str).collectAsMap()
 
 if __name__=='__main__':
 	run()
