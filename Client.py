@@ -23,7 +23,8 @@ class TCP(object):
         try:
             self.stream = yield self.client.connect(self.host,self.port)
         except Exception,e:
-            print "Could not connect Master ..."
+            print "WARNING: Could not connect Master ..."
+            ioloop.IOLoop.instance().call_later(1,self.connect)
         else:
             self.stream.set_close_callback(self.on_close)
             self.register()
@@ -31,7 +32,8 @@ class TCP(object):
 
     def on_close(self):
         print 'WARNING: Master: Closed'
-        self.stream.close()
+        if self.stream.closed():
+            ioloop.IOLoop.instance().call_later(1,self.connect)
 
 
 
