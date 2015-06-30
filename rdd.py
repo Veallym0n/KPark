@@ -99,7 +99,7 @@ class RDD:
         return RDD(data,ctx=self.ctx)
 
     def dist_sort(self,key=None,reverse=False):
-        return RDD(self.collect(),ctx=self.ctx).use(lambda x:sorted(x,key=key,reverse=reverse)).sort()
+        return RDD(self.collect(),ctx=self.ctx).use(lambda x:sorted(x,key=key,reverse=reverse)).sort(key=key,reverse=reverse)
 
     def reduce(self,func):
         return RDD(reduce(func,self.collect()),ctx=self.ctx)
